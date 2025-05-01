@@ -1,8 +1,10 @@
+using MovieAPI.Application;
 using MovieAPI.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 
 builder.Services.AddControllers();
