@@ -24,12 +24,16 @@ namespace MovieAPI.Persistence
 
 			services.AddScoped<ICastReadRepository, CastReadRepository>();
 			services.AddScoped<ICastWriteRepository, CastWriteRepository>();
+
 			services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
 			services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
+
 			services.AddScoped<IMovieReadRepository, MovieReadRepository>();
 			services.AddScoped<IMovieWriteRepository, MovieWriteRepository>();
+
 			services.AddScoped<IReviewReadRepository, ReviewReadRepository>();
 			services.AddScoped<IReviewWriteRepository, ReviewWriteRepository>();
+
 			services.AddScoped<ITagReadRepository, TagReadRepository>();
 			services.AddScoped<ITagWriteRepository, TagWriteRepository>();
 		}

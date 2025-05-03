@@ -7,7 +7,10 @@ namespace MovieAPI.Application
 	{
 		public static void AddApplicationServices(this IServiceCollection services)
 		{
-			services.AddMediatR(typeof(ServiceRegistration));
+			services.AddMediatR(cfg =>
+			{
+				cfg.RegisterServicesFromAssembly(typeof(ServiceRegistration).Assembly);
+			});
 		}
 	}
 }

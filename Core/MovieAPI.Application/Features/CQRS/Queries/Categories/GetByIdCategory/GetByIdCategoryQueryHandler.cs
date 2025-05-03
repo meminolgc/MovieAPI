@@ -14,9 +14,10 @@ namespace MovieAPI.Application.Features.CQRS.Queries.Categories.GetByIdCategory
 
 		public async Task<GetByIdCategoryQueryResponse> Handle(GetByIdCategoryQuery request, CancellationToken cancellationToken)
 		{
-			var category = await _categoryReadRepository.GetByIdAsync(request.CategoryId);
+			var category = await _categoryReadRepository.GetByIdAsync(request.Id);
 			return new()
 			{
+				Id = category.Id,
 				CategoryName = category.CategoryName
 			};
 		}
