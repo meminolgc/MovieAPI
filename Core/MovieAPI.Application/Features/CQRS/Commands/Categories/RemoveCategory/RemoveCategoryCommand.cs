@@ -4,6 +4,6 @@ namespace MovieAPI.Application.Features.CQRS.Commands.Categories.RemoveCategory
 {
 	public class RemoveCategoryCommand : IRequest<RemoveCategoryCommandResponse>
 	{
-		public int CategoryId { get; set; }
+		public int Id { get; set; }
 	}
 }

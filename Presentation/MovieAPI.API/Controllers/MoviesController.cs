@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieAPI.Application.Features.CQRS.Commands.Movies.CreateMovie;
 using MovieAPI.Application.Features.CQRS.Commands.Movies.RemoveMovie;
 using MovieAPI.Application.Features.CQRS.Commands.Movies.UpdateMovie;
+using MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie;
 using MovieAPI.Application.Features.CQRS.Queries.Movies.GetByIdMovie;
 
 namespace MovieAPI.API.Controllers
@@ -28,7 +29,7 @@ namespace MovieAPI.API.Controllers
 		[HttpGet("GetAllMovies")]
 		public async Task<IActionResult> GetAllMovies()
 		{
-			var result = await _mediator.Send(new GetByIdMovieQueryResponse());
+			var result = await _mediator.Send(new GetAllMovieQuery());
 			return Ok(result);
 		}
 

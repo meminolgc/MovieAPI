@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MovieAPI.Application.Dtos.Movie;
 using MovieAPI.Application.Repositories.Movie;
+using MovieAPI.Dto.DTOs.MovieDtos;
 
 namespace MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie
 {
@@ -17,7 +17,7 @@ namespace MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie
 		public async Task<GetAllMovieQueryResponse> Handle(GetAllMovieQuery request, CancellationToken cancellationToken)
 		{
 			var movies = await _repository.GetAll().ToListAsync();
-			var movieDtos = movies.Select(x => new GetAllMovieDto
+			var movieDtos = movies.Select(x => new ResultMovieDto
 			{
 				CoverImageUrl = x.CoverImageUrl,
 				CreatedYear = x.CreatedYear,

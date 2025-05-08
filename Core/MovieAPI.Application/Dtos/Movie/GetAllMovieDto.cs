@@ -11,4 +11,4 @@
 		public bool Status { get; set; }
 		public DateTime RelaseTime { get; set; }
 	}
-}
+}				

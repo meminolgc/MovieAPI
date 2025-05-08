@@ -14,7 +14,7 @@ namespace MovieAPI.Application.Features.CQRS.Commands.Categories.RemoveCategory
 
 		public async Task<RemoveCategoryCommandResponse> Handle(RemoveCategoryCommand request, CancellationToken cancellationToken)
 		{
-			await _repository.RemoveAsync(request.CategoryId);
+			await _repository.RemoveAsync(request.Id);
 			await _repository.SaveAsync();
 
 			return new();
