@@ -11,6 +11,7 @@ namespace MovieAPI.Application.Features.CQRS.Commands.Movies.CreateMovie
 		public decimal Rating { get; set; }
 		public int Duration { get; set; }
 		public bool Status { get; set; }
+		public int CategoryId { get; set; }
 		public DateTime RelaseTime { get; set; }
 	}
 }

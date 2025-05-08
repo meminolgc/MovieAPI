@@ -3,5 +3,6 @@
 	public class GetAllCategoryDto
 	{
 		public string CategoryName { get; set; }
+
 	}
 }

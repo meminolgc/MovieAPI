@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieAPI.Application.Dtos.Movie;
 using MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie;
-using MovieAPI.Dto.DTOs.MovieDtos;
 using Newtonsoft.Json;
 
 namespace MovieAPI.WebUI.Controllers
@@ -16,9 +16,9 @@ namespace MovieAPI.WebUI.Controllers
 
 		public async Task<IActionResult> MovieList()
 		{
-			@ViewBag.v1 = "Film Listesi";
-			@ViewBag.v2 = "Ana Sayfa";
-			@ViewBag.v3 = "Tüm Filmler";
+			//@ViewBag.v1 = "Film İçerikleri";
+			//@ViewBag.v2 = "Ana Sayfa";
+			//@ViewBag.v3 = "Tüm Filmler";
 
 			var client = _httpClientFactory.CreateClient();
 			var responseMessage = await client.GetAsync("https://localhost:44339/api/Movies/GetAllMovies");
@@ -30,13 +30,17 @@ namespace MovieAPI.WebUI.Controllers
 				var response = JsonConvert.DeserializeObject<GetAllMovieQueryResponse>(jsonData);
 				movies = response?.Movies ?? new List<ResultMovieDto>(); //null-coalescing operatörü: Sol taraf null ise sağ taraf kullanılır.
 			}
-
 			return View(movies);
+		}
+
+		public async Task<IActionResult> MovieDetail(int id)
+		{
+			id = 0;
+			return View();
 		}
 	}
 }
 
-//DTO katmanı oluşturulacak 
 //API adresi hardcoded (çıkarılacak) //appsettings dosyasından al. 
 //var baseUrl = _configuration["ApiBaseUrl"];
 //var responseMessage = await client.GetAsync($"{baseUrl}/api/Movies/GetAllMovies");

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MovieAPI.Application.Dtos.Movie;
 using MovieAPI.Application.Repositories.Movie;
-using MovieAPI.Dto.DTOs.MovieDtos;
 
 namespace MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie
 {
@@ -26,7 +26,9 @@ namespace MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie
 				Rating = x.Rating,
 				RelaseTime = x.RelaseTime,
 				Status = x.Status,
-				Title = x.Title
+				Title = x.Title,
+				CategoryId = x.CategoryId,
+				
 			}).ToList();
 
 			return new()

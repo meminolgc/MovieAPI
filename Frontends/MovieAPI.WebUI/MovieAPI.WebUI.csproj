@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\MovieAPI.Application\MovieAPI.Application.csproj" />
-    <ProjectReference Include="..\MovieAPI.Dto\MovieAPI.Dto.csproj" />
   </ItemGroup>
 
 </Project>

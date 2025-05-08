@@ -24,6 +24,7 @@ namespace MovieAPI.Application.Features.CQRS.Commands.Movies.CreateMovie
 				Rating = request.Rating,
 				RelaseTime = request.RelaseTime,
 				Status = request.Status,
+				CategoryId = request.CategoryId
 			});
 			await _repository.SaveAsync();
 

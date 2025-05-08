@@ -35,6 +35,7 @@ namespace MovieAPI.Application.Features.CQRS.Commands.Movies.UpdateMovie
 			movie.CoverImageUrl = request.CoverImageUrl;
 			movie.Duration = request.Duration;
 			movie.RelaseTime = request.RelaseTime;
+			movie.CategoryId = request.CategoryId;
 
 			await _movieWriteRepository.SaveAsync();
 			return new()

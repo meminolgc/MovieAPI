@@ -20,12 +20,12 @@ namespace MovieAPI.Application.Features.CQRS.Queries.Casts.GetAllCast
 
 			var castDtos = casts.Select(x => new GetAllCastDto
 			{
-				Name = request.Name,
-				Surname = request.Surname,
-				Title = request.Title,
-				Biography = request.Biography,
-				ImageUrl = request.ImageUrl,
-				Overview = request.Overview
+				Name = x.Name,
+				Surname = x.Surname,
+				Title = x.Title,
+				Biography = x.Biography,
+				ImageUrl = x.ImageUrl,
+				Overview = x.Overview
 			}).ToList();
 
 			return new()

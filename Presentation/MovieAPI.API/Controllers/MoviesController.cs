@@ -34,7 +34,7 @@ namespace MovieAPI.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddMovie(CreateMovieCommand createMovieCommand)
+		public async Task<IActionResult> AddMovie([FromBody] CreateMovieCommand createMovieCommand)
 		{
 			CreateMovieCommandResponse response = await _mediator.Send(createMovieCommand);
 			return Ok(response);

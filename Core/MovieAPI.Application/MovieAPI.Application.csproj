@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frontends\MovieAPI.Dto\MovieAPI.Dto.csproj" />
     <ProjectReference Include="..\MovieAPI.Domain\MovieAPI.Domain.csproj" />
   </ItemGroup>
 

@@ -12,5 +12,8 @@ namespace MovieAPI.Domain.Entities
 		public int Duration { get; set; }
 		public bool Status { get; set; }
 		public DateTime RelaseTime { get; set; }
+
+		public int CategoryId { get; set; }
+		public Category Category { get; set; }
 	}
 }

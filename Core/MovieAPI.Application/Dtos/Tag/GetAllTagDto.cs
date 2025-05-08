@@ -3,5 +3,6 @@
 	public class GetAllTagDto
 	{
 		public string Title { get; set; }
+
 	}
 }

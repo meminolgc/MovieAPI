@@ -25,7 +25,8 @@ namespace MovieAPI.Application.Features.CQRS.Queries.Movies.GetByIdMovie
 				Rating = movie.Rating, 
 				RelaseTime = movie.RelaseTime,
 				Status = movie.Status,
-				Title = movie.Title
+				Title = movie.Title,
+				CategoryId = movie.CategoryId,
 			};
 		}
 	}
