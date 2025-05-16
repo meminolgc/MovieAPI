@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MovieAPI.Application.Dtos.Movie;
+using MovieAPI.Application.Features.CQRS.Queries.Categories.GetAllCategory;
 using MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie;
+using MovieAPI.Application.Repositories.Category;
+using MovieAPI.Application.Repositories.Movie;
+using MovieAPI.WebUI.ViewModels;
 using Newtonsoft.Json;
 
 namespace MovieAPI.WebUI.Controllers
 {
 	public class MoviesController : Controller
 	{
-		 readonly IHttpClientFactory _httpClientFactory;
+		private readonly IHttpClientFactory _httpClientFactory;
 
 		public MoviesController(IHttpClientFactory httpClientFactory)
 		{
@@ -16,10 +22,6 @@ namespace MovieAPI.WebUI.Controllers
 
 		public async Task<IActionResult> MovieList()
 		{
-			//@ViewBag.v1 = "Film İçerikleri";
-			//@ViewBag.v2 = "Ana Sayfa";
-			//@ViewBag.v3 = "Tüm Filmler";
-
 			var client = _httpClientFactory.CreateClient();
 			var responseMessage = await client.GetAsync("https://localhost:44339/api/Movies/GetAllMovies");
 
@@ -30,7 +32,9 @@ namespace MovieAPI.WebUI.Controllers
 				var response = JsonConvert.DeserializeObject<GetAllMovieQueryResponse>(jsonData);
 				movies = response?.Movies ?? new List<ResultMovieDto>(); //null-coalescing operatörü: Sol taraf null ise sağ taraf kullanılır.
 			}
+
 			return View(movies);
+
 		}
 
 		public async Task<IActionResult> MovieDetail(int id)
@@ -38,9 +42,6 @@ namespace MovieAPI.WebUI.Controllers
 			id = 0;
 			return View();
 		}
+		
 	}
 }
-
-//API adresi hardcoded (çıkarılacak) //appsettings dosyasından al. 
-//var baseUrl = _configuration["ApiBaseUrl"];
-//var responseMessage = await client.GetAsync($"{baseUrl}/api/Movies/GetAllMovies");

@@ -53,5 +53,6 @@ namespace MovieAPI.API.Controllers
 			UpdateMovieCommandResponse response = await _mediator.Send(updateMovieCommand);
 			return Ok(response);
 		}
+
 	}
 }

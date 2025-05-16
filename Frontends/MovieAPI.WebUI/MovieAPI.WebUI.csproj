@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\MovieAPI.Application\MovieAPI.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\MovieAPI.Infrastructure\MovieAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

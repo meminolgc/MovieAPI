@@ -1,9 +1,12 @@
+using MovieAPI.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHttpClient();
 builder.Services.AddMediatR(cfg =>
 	cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
