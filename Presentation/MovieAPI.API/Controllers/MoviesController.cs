@@ -5,6 +5,7 @@ using MovieAPI.Application.Features.CQRS.Commands.Movies.RemoveMovie;
 using MovieAPI.Application.Features.CQRS.Commands.Movies.UpdateMovie;
 using MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie;
 using MovieAPI.Application.Features.CQRS.Queries.Movies.GetByIdMovie;
+using MovieAPI.Application.Features.CQRS.Queries.Movies.GetFilteredMovie;
 
 namespace MovieAPI.API.Controllers
 {
@@ -52,6 +53,13 @@ namespace MovieAPI.API.Controllers
 		{
 			UpdateMovieCommandResponse response = await _mediator.Send(updateMovieCommand);
 			return Ok(response);
+		}
+
+		[HttpPost("filter")]
+		public async Task<IActionResult> FilterMovies([FromBody] MovieFilterModel filter)
+		{
+			var result = await _mediator.Send(new GetFilteredMovieQuery(filter));
+			return Ok(result);
 		}
 
 	}

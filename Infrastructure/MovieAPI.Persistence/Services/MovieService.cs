@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using MovieAPI.Application.Abstractions.Services;
 using MovieAPI.Application.Dtos.Movie;
+using MovieAPI.Application.Features.CQRS.Queries.Movies.GetFilteredMovie;
 using MovieAPI.Application.Repositories.Movie;
 using MovieAPI.Domain.Entities;
 
@@ -73,6 +75,57 @@ namespace MovieAPI.Persistence.Services
 				CategoryId = movie.CategoryId,
 			};
 		}
+
+		public async Task<List<ResultMovieDto>> GetFilteredMovieAsync(MovieFilterModel filter)
+		{
+			var query = _readRepository.GetAll().Include(x => x.Category).AsQueryable();
+
+			// Başlık filtreleme
+			if (!string.IsNullOrEmpty(filter.Title))
+			{
+				query = query.Where(m => m.Title.Contains(filter.Title));
+			}
+
+			// Kategori filtreleme (çoklu seçim)
+			if (filter.CategoryIds != null && filter.CategoryIds.Any())
+			{
+				query = query.Where(m => filter.CategoryIds.Contains(m.CategoryId));
+			}
+
+			// Reyting filtreleme
+			if (filter.MinRating.HasValue)
+			{
+				query = query.Where(m => m.Rating >= filter.MinRating.Value);
+			}
+			if (filter.MaxRating.HasValue)
+			{
+				query = query.Where(m => m.Rating <= filter.MaxRating.Value);
+			}
+
+			// Tarih aralığı filtreleme
+			if (filter.StartYear.HasValue)
+			{
+				query = query.Where(m => m.RelaseTime >= filter.StartYear.Value);
+			}
+			if (filter.EndYear.HasValue)
+			{
+				query = query.Where(m => m.RelaseTime <= filter.EndYear.Value);
+			}
+
+			var result = await query.Select(m => new ResultMovieDto
+			{
+				Id = m.Id,
+				Title = m.Title,
+				Description = m.Description,
+				CategoryName = m.Category.CategoryName,
+				Rating = m.Rating,
+				RelaseTime = m.RelaseTime,
+				CoverImageUrl = m.CoverImageUrl
+			}).ToListAsync();
+
+			return result;
+		}
+		
 
 		public async Task RemoveMovieAsync(int id)
 		{
