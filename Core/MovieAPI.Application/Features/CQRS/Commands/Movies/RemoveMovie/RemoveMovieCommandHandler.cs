@@ -1,22 +1,20 @@
 ﻿using MediatR;
-using MovieAPI.Application.Repositories.Movie;
+using MovieAPI.Application.Abstractions.Services;
 
 namespace MovieAPI.Application.Features.CQRS.Commands.Movies.RemoveMovie
 {
 	public class RemoveMovieCommandHandler : IRequestHandler<RemoveMovieCommand, RemoveMovieCommandResponse>
 	{
-		private readonly IMovieWriteRepository _repository;
+		private readonly IMovieService _movieService;
 
-		public RemoveMovieCommandHandler(IMovieWriteRepository repository)
+		public RemoveMovieCommandHandler(IMovieService movieService)
 		{
-			_repository = repository;
+			_movieService = movieService;
 		}
 
 		public async Task<RemoveMovieCommandResponse> Handle(RemoveMovieCommand request, CancellationToken cancellationToken)
 		{
-			await _repository.RemoveAsync(request.Id);
-			await _repository.SaveAsync();
-
+			await _movieService.RemoveMovieAsync(request.Id);
 			return new();
 		}
 	}

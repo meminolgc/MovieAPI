@@ -7,6 +7,7 @@ namespace MovieAPI.Persistence.Repositories.Movie
 	{
 		public MovieReadRepository(MovieAPIDbContext context) : base(context)
 		{
+
 		}
 	}
 }

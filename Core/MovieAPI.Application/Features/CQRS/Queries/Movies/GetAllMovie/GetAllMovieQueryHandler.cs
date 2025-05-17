@@ -1,39 +1,24 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using MovieAPI.Application.Dtos.Movie;
-using MovieAPI.Application.Repositories.Movie;
+using MovieAPI.Application.Abstractions.Services;
 
 namespace MovieAPI.Application.Features.CQRS.Queries.Movies.GetAllMovie
 {
 	public class GetAllMovieQueryHandler : IRequestHandler<GetAllMovieQuery, GetAllMovieQueryResponse>
 	{
-		private readonly IMovieReadRepository _repository;
+		private readonly IMovieService _movieService;
 
-		public GetAllMovieQueryHandler(IMovieReadRepository repository)
+		public GetAllMovieQueryHandler(IMovieService movieService)
 		{
-			_repository = repository;
+			_movieService = movieService;
 		}
 
 		public async Task<GetAllMovieQueryResponse> Handle(GetAllMovieQuery request, CancellationToken cancellationToken)
 		{
-			var movies = await _repository.GetAll().ToListAsync();
-			var movieDtos = movies.Select(x => new ResultMovieDto
-			{
-				CoverImageUrl = x.CoverImageUrl,
-				CreatedYear = x.CreatedYear,
-				Description = x.Description,
-				Duration = x.Duration,
-				Rating = x.Rating,
-				RelaseTime = x.RelaseTime,
-				Status = x.Status,
-				Title = x.Title,
-				CategoryId = x.CategoryId,
-				
-			}).ToList();
+			var movies = await _movieService.GetAllMovieAsync();
 
 			return new()
 			{
-				Movies = movieDtos
+				Movies = movies
 			};
 		}
 	}

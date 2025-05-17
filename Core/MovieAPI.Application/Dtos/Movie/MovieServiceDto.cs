@@ -1,8 +1,6 @@
-﻿using MediatR;
-
-namespace MovieAPI.Application.Features.CQRS.Commands.Movies.UpdateMovie
+﻿namespace MovieAPI.Application.Dtos.Movie
 {
-	public class UpdateMovieCommand : IRequest<UpdateMovieCommandResponse>
+	public class MovieServiceDto
 	{
 		public int Id { get; set; }
 		public string Title { get; set; }
@@ -12,7 +10,8 @@ namespace MovieAPI.Application.Features.CQRS.Commands.Movies.UpdateMovie
 		public decimal Rating { get; set; }
 		public int Duration { get; set; }
 		public bool Status { get; set; }
-		public int CategoryId { get; set; }
 		public DateTime RelaseTime { get; set; }
+
+		public int CategoryId { get; set; }
 	}
 }

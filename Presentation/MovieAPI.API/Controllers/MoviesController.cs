@@ -48,7 +48,7 @@ namespace MovieAPI.API.Controllers
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> UpdateMovie(UpdateMovieCommand updateMovieCommand)
+		public async Task<IActionResult> UpdateMovie([FromBody] UpdateMovieCommand updateMovieCommand)
 		{
 			UpdateMovieCommandResponse response = await _mediator.Send(updateMovieCommand);
 			return Ok(response);

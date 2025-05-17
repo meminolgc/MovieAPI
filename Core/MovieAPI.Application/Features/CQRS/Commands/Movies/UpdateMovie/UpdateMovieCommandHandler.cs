@@ -1,43 +1,33 @@
 ﻿using MediatR;
-using MovieAPI.Application.Repositories.Movie;
+using MovieAPI.Application.Abstractions.Services;
 
 namespace MovieAPI.Application.Features.CQRS.Commands.Movies.UpdateMovie
 {
 	public class UpdateMovieCommandHandler : IRequestHandler<UpdateMovieCommand, UpdateMovieCommandResponse>
 	{
-		private readonly IMovieWriteRepository _movieWriteRepository;
-		private readonly IMovieReadRepository _movieReadRepository;
+		private readonly IMovieService _movieService;
 
-		public UpdateMovieCommandHandler(IMovieWriteRepository movieWriteRepository,
-			IMovieReadRepository movieReadRepository)
+		public UpdateMovieCommandHandler(IMovieService movieService)
 		{
-			_movieWriteRepository = movieWriteRepository;
-			_movieReadRepository = movieReadRepository;
+			_movieService = movieService;
 		}
 
 		public async Task<UpdateMovieCommandResponse> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
 		{
-			Domain.Entities.Movie movie = await _movieReadRepository.GetByIdAsync(request.MovieId);
-			if (movie == null)
+			await _movieService.UpdateMovieAsync(new()
 			{
-				return new()
-				{
-					Message = "not found",
-					Success = false
-				};
-			}
+				Id = request.Id,
+				Title = request.Title,
+				CategoryId = request.CategoryId,
+				CoverImageUrl = request.CoverImageUrl,
+				CreatedYear = request.CreatedYear,
+				Description = request.Description,
+				Duration = request.Duration,
+				Rating = request.Rating,
+				RelaseTime = request.RelaseTime,
+				Status = request.Status
+			});
 
-			movie.Title = request.Title;
-			movie.Status = request.Status;
-			movie.Description = request.Description;
-			movie.Rating = request.Rating;
-			movie.CreatedYear = request.CreatedYear;
-			movie.CoverImageUrl = request.CoverImageUrl;
-			movie.Duration = request.Duration;
-			movie.RelaseTime = request.RelaseTime;
-			movie.CategoryId = request.CategoryId;
-
-			await _movieWriteRepository.SaveAsync();
 			return new()
 			{
 				Message = "success",

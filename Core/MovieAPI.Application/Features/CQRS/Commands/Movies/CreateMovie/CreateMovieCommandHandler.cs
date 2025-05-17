@@ -1,32 +1,31 @@
 ﻿using MediatR;
-using MovieAPI.Application.Repositories.Movie;
+using MovieAPI.Application.Abstractions.Services;
 
 namespace MovieAPI.Application.Features.CQRS.Commands.Movies.CreateMovie
 {
 	public class CreateMovieCommandHandler : IRequestHandler<CreateMovieCommand, CreateMovieCommandResponse>
 	{
-		private readonly IMovieWriteRepository _repository;
+		private readonly IMovieService _movieService;
 
-		public CreateMovieCommandHandler(IMovieWriteRepository repository)
+		public CreateMovieCommandHandler(IMovieService movieService)
 		{
-			_repository = repository;
+			_movieService = movieService;
 		}
 
 		public async Task<CreateMovieCommandResponse> Handle(CreateMovieCommand request, CancellationToken cancellationToken)
 		{
-			var movie = await _repository.AddAsync(new Domain.Entities.Movie
+			await _movieService.CreateMovieAsync(new()
 			{
 				Title = request.Title,
-				CoverImageUrl = request.CoverImageUrl,
-				CreatedYear = request.CreatedYear,
 				Description = request.Description,
+				CoverImageUrl = request.CoverImageUrl,
 				Duration = request.Duration,
+				CreatedYear = request.CreatedYear,
 				Rating = request.Rating,
 				RelaseTime = request.RelaseTime,
 				Status = request.Status,
 				CategoryId = request.CategoryId
 			});
-			await _repository.SaveAsync();
 
 			return new()
 			{

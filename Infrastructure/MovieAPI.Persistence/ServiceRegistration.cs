@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MovieAPI.Application.Abstractions.Services;
 using MovieAPI.Application.Repositories.Cast;
 using MovieAPI.Application.Repositories.Category;
 using MovieAPI.Application.Repositories.Movie;
@@ -12,6 +13,7 @@ using MovieAPI.Persistence.Repositories.Category;
 using MovieAPI.Persistence.Repositories.Movie;
 using MovieAPI.Persistence.Repositories.Review;
 using MovieAPI.Persistence.Repositories.Tag;
+using MovieAPI.Persistence.Services;
 
 namespace MovieAPI.Persistence
 {
@@ -36,6 +38,8 @@ namespace MovieAPI.Persistence
 
 			services.AddScoped<ITagReadRepository, TagReadRepository>();
 			services.AddScoped<ITagWriteRepository, TagWriteRepository>();
+
+			services.AddScoped<IMovieService, MovieService>();
 		}
 
 	}

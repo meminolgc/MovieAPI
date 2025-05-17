@@ -1,33 +1,35 @@
 ﻿using MediatR;
-using MovieAPI.Application.Repositories.Movie;
+using MovieAPI.Application.Abstractions.Services;
 
 namespace MovieAPI.Application.Features.CQRS.Queries.Movies.GetByIdMovie
 {
 	public class GetByIdMovieQueryHandler : IRequestHandler<GetByIdMovieQuery, GetByIdMovieQueryResponse>
 	{
-		private readonly IMovieReadRepository _repository;
+		private readonly IMovieService _movieService;
 
-		public GetByIdMovieQueryHandler(IMovieReadRepository repository)
+		public GetByIdMovieQueryHandler(IMovieService movieService)
 		{
-			_repository = repository;
+			_movieService = movieService;
 		}
 
 		public async Task<GetByIdMovieQueryResponse> Handle(GetByIdMovieQuery request, CancellationToken cancellationToken)
 		{
-			var movie = await _repository.GetByIdAsync(request.Id);
+			var movie = await _movieService.GetByIdMovieAsync(request.Id);
+
 			return new()
 			{
 				Id = movie.Id,
+				Title = movie.Title,
+				Description = movie.Description,
 				CoverImageUrl = movie.CoverImageUrl,
 				CreatedYear = movie.CreatedYear,
-				Description = movie.Description,
+				Rating = movie.Rating,
 				Duration = movie.Duration,
-				Rating = movie.Rating, 
-				RelaseTime = movie.RelaseTime,
 				Status = movie.Status,
-				Title = movie.Title,
 				CategoryId = movie.CategoryId,
+				RelaseTime = movie.RelaseTime
 			};
+
 		}
 	}
 }
